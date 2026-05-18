@@ -83,6 +83,8 @@
 | [08-How to Write Good Skills](https://github.com/datawhalechina/hello-agents/blob/main/Extra-Chapter/Extra08-如何写出好的Skill.md) | Skill writing best practices |
 | [09-Agent Development Pitfalls and Practical Lessons](https://github.com/datawhalechina/hello-agents/blob/main/Extra-Chapter/Extra09-Agent应用开发实践踩坑与经验分享.md) | Practical lessons and pitfalls from building a Code Agent |
 | [10-Agent Self-Evolution](https://github.com/datawhalechina/hello-agents/blob/main/Extra-Chapter/Extra10-Agent自进化.md) | Four closed loops of agent self-evolution and representative projects |
+| [11-Web Agent: Principles and Practice](https://github.com/datawhalechina/hello-agents/blob/main/Extra-Chapter/Extra11-WebAgent科普与实战.md) | Web Agent principles, anti-bot practice, and HelloAgents integration |
+| [12-Trip Planner Post-Training Practice](https://github.com/datawhalechina/hello-agents/blob/main/Extra-Chapter/Extra12-旅行助手后训练实战.md) | From product protocol to LoRA SFT evaluation loop |
 
 ### PDF Version Download
 
@@ -140,6 +142,8 @@ We are an open-source community and welcome any form of contribution!
 - [Wang Dapeng - Datawhale Member](https://github.com/ditingdapeng) (Senior Developer, Extra08 Content Contributor)
 - [You Yihui - Individual Developer](https://github.com/YYHDBL) (Nanjing University of Information Science and Technology, Extra09 content contribution)
 - [Yin Xin - Individual Developer](https://github.com/vinci-grape) (Zhejiang University, Extra10 content contribution)
+- [Pranav Janakiraman - Individual Developer](https://github.com/pranavjana) (TinyFish, Extra11 content contribution)
+- [Wang Yufei - Individual Developer](https://github.com/nameless0120) (Beijing University of Posts and Telecommunications, Extra12 content contribution)
 
 ### Special Thanks
 - Thanks to [@Sm1les](https://github.com/Sm1les) for help and support for this project
@@ -154,7 +158,7 @@ We are an open-source community and welcome any form of contribution!
 ## Star History
 
 <div align='center'>
-    <img src="./images/star-history-2026424.png" alt="Datawhale" width="90%">
+    <img src="./images/datawhalechina-hello-agents-stats-20260516.png" alt="Datawhale" width="90%">
 </div>
 
 <div align="center">
@@ -194,4 +198,3 @@ If Hello-Agents is helpful to your research or work, please cite:
 ## 📜 Open Source License
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
-
