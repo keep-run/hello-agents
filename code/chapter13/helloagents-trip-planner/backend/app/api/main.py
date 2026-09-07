@@ -17,7 +17,7 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# 配置CORS
+# 配置CORS（直连后端时生效；开发环境优先走 Vite 代理）
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.get_cors_origins_list(),

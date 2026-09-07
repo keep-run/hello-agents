@@ -432,7 +432,8 @@ const loadAttractionPhotos = async () => {
 
   tripPlan.value.days.forEach(day => {
     day.attractions.forEach(attraction => {
-      const promise = fetch(`http://localhost:8000/api/poi/photo?name=${encodeURIComponent(attraction.name)}`)
+      const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+      const promise = fetch(`${apiBase}/api/poi/photo?name=${encodeURIComponent(attraction.name)}`)
         .then(res => res.json())
         .then(data => {
           if (data.success && data.data.photo_url) {
@@ -831,9 +832,22 @@ const restoreMap = () => {
 
 // 初始化地图
 const initMap = async () => {
+  const jsKey = import.meta.env.VITE_AMAP_WEB_JS_KEY
+  if (!jsKey) {
+    const msg = '未配置高德地图 Key，请复制 frontend/.env.example 为 .env 并填写 VITE_AMAP_WEB_JS_KEY 后重启前端'
+    console.error('地图加载失败:', msg)
+    message.error(msg)
+    return
+  }
+
+  const securityJsCode = import.meta.env.VITE_AMAP_SECURITY_JS_CODE
+  if (securityJsCode) {
+    ;(window as any)._AMapSecurityConfig = { securityJsCode }
+  }
+
   try {
     const AMap = await AMapLoader.load({
-      key: import.meta.env.VITE_AMAP_WEB_JS_KEY,  // 高德地图Web端(JS API) Key
+      key: jsKey,  // 高德地图Web端(JS API) Key
       version: '2.0',
       plugins: ['AMap.Marker', 'AMap.Polyline', 'AMap.InfoWindow']
     })
