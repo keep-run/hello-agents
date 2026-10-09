@@ -165,14 +165,20 @@ class MultiAgentTripPlanner:
 
             # 创建共享的MCP工具(只创建一次)
             print("  - 创建共享MCP工具...")
+            # 钉死 pydantic 2.11：uvx 默认会装到 2.14，和 mcp 1.8.1 不兼容，
+            # 导致工具发现失败，Agent 只能注册到名为 amap 的空壳工具。
             self.amap_tool = MCPTool(
                 name="amap",
                 description="高德地图服务",
-                server_command=["uvx", "amap-mcp-server"],
+                server_command=["uvx", "--with", "pydantic==2.11.3", "amap-mcp-server"],
                 env={"AMAP_MAPS_API_KEY": settings.amap_api_key},
                 auto_expand=True
             )
             self.amap_tool.expandable=True
+            discovered = getattr(self.amap_tool, "_available_tools", []) or []
+            print(f"     发现 {len(discovered)} 个高德 MCP 工具: {[t.get('name') for t in discovered]}")
+            if not discovered:
+                print("⚠️  高德 MCP 工具发现失败，amap_maps_text_search 将不可用。请检查 uvx amap-mcp-server 启动日志。")
 
             # 创建景点搜索Agent
             print("  - 创建景点搜索Agent...")

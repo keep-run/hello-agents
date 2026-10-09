@@ -1,10 +1,10 @@
 """POI相关API路由"""
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from ...services.amap_service import get_amap_service
-from ...services.unsplash_service import get_unsplash_service
+from ...services.photo_service import get_photo_service
 
 router = APIRouter(prefix="/poi", tags=["POI"])
 
@@ -89,33 +89,31 @@ async def search_poi(keywords: str, city: str = "北京"):
 @router.get(
     "/photo",
     summary="获取景点图片",
-    description="根据景点名称从Unsplash获取图片"
+    description="根据景点名称和城市获取实拍图片（高德 POI，失败则回退维基百科）"
 )
-async def get_attraction_photo(name: str):
+async def get_attraction_photo(
+    name: str,
+    city: str = Query(default="", description="城市，用于限定 POI 搜索")
+):
     """
     获取景点图片
 
     Args:
         name: 景点名称
+        city: 城市名称
 
     Returns:
         图片URL
     """
     try:
-        unsplash_service = get_unsplash_service()
-
-        # 搜索景点图片
-        photo_url = unsplash_service.get_photo_url(f"{name} China landmark")
-
-        if not photo_url:
-            # 如果没找到,尝试只用景点名称搜索
-            photo_url = unsplash_service.get_photo_url(name)
+        photo_url = get_photo_service().get_attraction_photo(name, city)
 
         return {
             "success": True,
-            "message": "获取图片成功",
+            "message": "获取图片成功" if photo_url else "未找到匹配图片",
             "data": {
                 "name": name,
+                "city": city,
                 "photo_url": photo_url
             }
         }

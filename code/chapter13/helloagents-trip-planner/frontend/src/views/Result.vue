@@ -433,7 +433,9 @@ const loadAttractionPhotos = async () => {
   tripPlan.value.days.forEach(day => {
     day.attractions.forEach(attraction => {
       const apiBase = import.meta.env.VITE_API_BASE_URL || ''
-      const promise = fetch(`${apiBase}/api/poi/photo?name=${encodeURIComponent(attraction.name)}`)
+      const city = tripPlan.value?.city || ''
+      const params = new URLSearchParams({ name: attraction.name, city })
+      const promise = fetch(`${apiBase}/api/poi/photo?${params.toString()}`)
         .then(res => res.json())
         .then(data => {
           if (data.success && data.data.photo_url) {

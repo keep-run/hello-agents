@@ -209,7 +209,7 @@ import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import { generateTripPlan } from '@/services/api'
 import type { TripFormData } from '@/types'
-import type { Dayjs } from 'dayjs'
+import dayjs, { type Dayjs } from 'dayjs'
 
 const router = useRouter()
 const loading = ref(false)
@@ -217,14 +217,14 @@ const loadingProgress = ref(0)
 const loadingStatus = ref('')
 
 const formData = reactive<TripFormData & { start_date: Dayjs | null; end_date: Dayjs | null }>({
-  city: '',
-  start_date: null,
-  end_date: null,
-  travel_days: 1,
+  city: '武汉',
+  start_date: dayjs().add(1, 'day'),
+  end_date: dayjs().add(2, 'day'),
+  travel_days: 2,
   transportation: '公共交通',
   accommodation: '经济型酒店',
-  preferences: [],
-  free_text_input: ''
+  preferences: ['美食'],
+  free_text_input: '交通便利'
 })
 
 // 监听日期变化,自动计算旅行天数
